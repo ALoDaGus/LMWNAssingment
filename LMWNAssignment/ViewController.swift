@@ -7,35 +7,97 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
+class ViewController: UIViewController{
+    
     @IBOutlet weak var tableView: UITableView!
-    let photoList = [
-        PhotoInfo(url: "https://drscdn.500px.org/photo/1045672692/q%3D50_h%3D450/v2?sig=05716028d25d079b4f43f20c2689abe32622b8734d721892f1009de2e7af35fb", name: "Bogdana", description: "Posing guides, Tutorials, Backstage videos, NSFW content and tons of unpublished stuff: www.patreon.com/seanarcherphoto", likeCount: "1486", liked: true, avataurl: "", ownerName: "Owner1", camName: "nickon111"),
-        PhotoInfo(url: "https://drscdn.500px.org/photo/1045665148/q%3D50_h%3D450/v2?sig=57dc3adf39e9ae4e07022cc78363737e76225ae4459d7648636306a7676cfbb2", name: "Painted Sky 2", description: "Sunset at Batu Layar, Sawarna Beach, Banten Province, Indonesia.", likeCount: "813", liked: true, avataurl: "", ownerName: "Owner2", camName: "nickon222"),
-        PhotoInfo(url: "https://drscdn.500px.org/photo/1045665148/q%3D50_h%3D450/v2?sig=57dc3adf39e9ae4e07022cc78363737e76225ae4459d7648636306a7676cfbb2", name: "aaaaaaaaaaaaaaaaaasasasdasdasdasdasdasdasdasdadasdasd", description: "Sunset at Batu Layar, Sawarna Beach, Banten Province, Indonesia.Sunset at Batu Layar, Sawarna Beach, Banten Province, Indonesia.Sunset at Batu Layar, Sawarna Beach, Banten Province, Indonesia.", likeCount: "813", liked: true, avataurl: "", ownerName: "Owner3", camName: "nickon333"),
-    ]
+    @IBOutlet weak var refreshButton: UIButton!
+    @IBOutlet weak var nextPageButton: UIButton!
+    @IBOutlet weak var previousPageButton: UIButton!
+    @IBOutlet weak var currentPageLabel: UILabel!
+    @IBOutlet weak var loadingView: UIView!{
+        didSet{
+            loadingView.layer.cornerRadius = 6
+        }
+    }
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
+    var currentPage = 1 {
+        didSet{
+            loadData()
+        }
+    }
+    
+    var listOfPhotos = [PhotoDetail](){
+        didSet {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.navigationItem.title = "\(self.listOfPhotos.count) Photos found"
+                self.scrollToTop()
+                self.hideSpinner()
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        refreshButton.addTarget(self, action: #selector(loadData), for: .touchUpInside)
+        nextPageButton.addTarget(self, action: #selector(onClickNextPage), for: .touchUpInside)
+        previousPageButton.addTarget(self, action: #selector(onClickPreviousPage), for: .touchUpInside)
+        loadData()
+    }
+    
+    private func scrollToTop() {
+        let topRow = IndexPath(row: 0, section: 0)
+        self.tableView.scrollToRow(at: topRow, at: .top, animated: false)
+    }
+    
+    private func showSpinner() {
+        activityIndicator.startAnimating()
+        loadingView.isHidden = false
+    }
+
+    private func hideSpinner() {
+        activityIndicator.stopAnimating()
+        loadingView.isHidden = true
+    }
+    
+    @objc func onClickNextPage(){
+        currentPage += 1
+    }
+    
+    @objc func onClickPreviousPage(){
+        if currentPage <= 1{ return }
+        currentPage -= 1
+    }
+    
+    @objc func loadData(){
+        showSpinner()
+        currentPageLabel.text = "\(currentPage)"
+        let photoRequest = PhotosRequest(page: currentPage)
+        photoRequest.getPhotos{ [weak self] result in
+            switch result {
+            case .failure(let error):
+                print(error)
+            case .success(let photos):
+                self?.listOfPhotos = photos
+            }
+        }
     }
 }
 
 extension ViewController: UITableViewDataSource{
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return photoList.count
+        return listOfPhotos.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! PhotoTableViewCell
-        
-        let photo = photoList[indexPath.row]
-        
-        cell.set(url: photo.url, name: photo.name, description: photo.description, likeCount: photo.likeCount, liked: photo.liked, avataImage: photo.avataurl, ownerName: photo.ownerName, camName: photo.camName)
-        
+
+        let photo = listOfPhotos[indexPath.row]
+
+        cell.set(url: photo.image_url[0], name: photo.name, description: photo.description, likeCount: photo.votes_count, liked: false, avataImage: photo.user.avatars.tiny.https, ownerName: photo.user.fullname, camName: photo.camera)
+
         return cell
     }
-    
 }

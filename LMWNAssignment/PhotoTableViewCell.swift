@@ -17,28 +17,31 @@ class PhotoTableViewCell: UITableViewCell {
     @IBOutlet weak var avataImage: UIImageView!
     @IBOutlet weak var ownerNameLabel: UILabel!
     @IBOutlet weak var camNameLabel: UILabel!
+        
     
-    func set(url: String, name: String, description: String, likeCount: String, liked: Bool, avataImage: String, ownerName: String, camName: String){
+    func set(url: String, name: String, description: String, likeCount: Int, liked: Bool, avataImage: String, ownerName: String, camName: String){
         nameLabel.text = name
         descriptionLabel.text = description
         likeCountLabel.text = formatNumber(likeCount)
         ownerNameLabel.text = ownerName
         camNameLabel.text = camName
-        
-        
-        
-        
-        let url = URL(string: url)!
-        
-        if let data = try? Data(contentsOf: url) {
-                // Create Image and Update Image View
-                photoImage.image = UIImage(data: data)
-            }
-        
+        if camName == ""{
+            camNameLabel.isHidden = true
+        }
+        self.avataImage.image = downloadBigImg(avataImage)
+        photoImage.image = downloadBigImg(url)
     }
     
-    func formatNumber(_ number: String) -> String{
-        let largeNumber: Int? = Int(number)
+    func downloadBigImg(_ url: String) -> UIImage? {
+        let imgURL = URL(string: url)!
+        guard let data = try? Data(contentsOf: imgURL) else { return nil }
+            
+        let image = UIImage(data:  data)
+        return image
+    }
+    
+    func formatNumber(_ number: Int) -> String{
+        let largeNumber: Int? = number
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = NumberFormatter.Style.decimal
         let formattedNumber = numberFormatter.string(from: NSNumber(value: largeNumber!))
@@ -46,3 +49,4 @@ class PhotoTableViewCell: UITableViewCell {
     }
     
 }
+
