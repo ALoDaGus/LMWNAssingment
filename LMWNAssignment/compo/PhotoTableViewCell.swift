@@ -18,7 +18,7 @@ class PhotoTableViewCell: UITableViewCell {
     @IBOutlet weak var camNameLabel: UILabel!
         
     
-    func set(url: String, name: String, description: String, likeCount: Int, liked: Bool, avataImage: String, ownerName: String, camName: String){
+    func set(url: String, name: String, description: String, likeCount: Int, avataImage: String, ownerName: String, camName: String){
         nameLabel.text = name
         descriptionLabel.text = description
         likeCountLabel.text = formatNumber(likeCount)

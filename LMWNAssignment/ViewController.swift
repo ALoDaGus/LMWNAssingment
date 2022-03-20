@@ -14,12 +14,12 @@ class ViewController: UIViewController{
     @IBOutlet weak var nextPageButton: UIButton!
     @IBOutlet weak var previousPageButton: UIButton!
     @IBOutlet weak var currentPageLabel: UILabel!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var loadingView: UIView!{
         didSet{
             loadingView.layer.cornerRadius = 6
         }
     }
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var currentPage = 1 {
         didSet{
@@ -96,7 +96,7 @@ extension ViewController: UITableViewDataSource{
 
         let photo = listOfPhotos[indexPath.row]
 
-        cell.set(url: photo.image_url[0], name: photo.name, description: photo.description, likeCount: photo.votes_count, liked: false, avataImage: photo.user.avatars.tiny.https, ownerName: photo.user.fullname, camName: photo.camera)
+        cell.set(url: photo.image_url[0], name: photo.name, description: photo.description, likeCount: photo.votes_count, avataImage: photo.user.avatars.tiny.https, ownerName: photo.user.fullname, camName: photo.camera)
 
         return cell
     }
