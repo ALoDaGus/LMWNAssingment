@@ -9,8 +9,8 @@ import UIKit
 
 class ViewController: UIViewController{
     
+    let refreshControl = UIRefreshControl()
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var refreshButton: UIButton!
     @IBOutlet weak var nextPageButton: UIButton!
     @IBOutlet weak var previousPageButton: UIButton!
     @IBOutlet weak var currentPageLabel: UILabel!
@@ -31,18 +31,22 @@ class ViewController: UIViewController{
         didSet {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
-                self.navigationItem.title = "\(self.listOfPhotos.count) Photos found"
                 self.scrollToTop()
                 self.hideSpinner()
+                self.refreshControl.endRefreshing()
             }
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        refreshButton.addTarget(self, action: #selector(loadData), for: .touchUpInside)
         nextPageButton.addTarget(self, action: #selector(onClickNextPage), for: .touchUpInside)
         previousPageButton.addTarget(self, action: #selector(onClickPreviousPage), for: .touchUpInside)
+        
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(loadData), for: .valueChanged)
+        tableView.addSubview(refreshControl)
+        
         loadData()
     }
     

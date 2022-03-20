@@ -24,9 +24,7 @@ class PhotoTableViewCell: UITableViewCell {
         likeCountLabel.text = formatNumber(likeCount)
         ownerNameLabel.text = ownerName
         camNameLabel.text = camName
-        if camName == ""{
-            camNameLabel.isHidden = true
-        }
+        camNameLabel.isHidden = camName == "" ? true: false
         DispatchQueue.main.async {
             self.avataImage.image = self.downloadBigImg(avataImage)
             self.photoImage.image = self.downloadBigImg(url)
