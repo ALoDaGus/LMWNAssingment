@@ -13,7 +13,6 @@ class PhotoTableViewCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var likeCountLabel: UILabel!
-    @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var avataImage: UIImageView!
     @IBOutlet weak var ownerNameLabel: UILabel!
     @IBOutlet weak var camNameLabel: UILabel!
@@ -28,8 +27,10 @@ class PhotoTableViewCell: UITableViewCell {
         if camName == ""{
             camNameLabel.isHidden = true
         }
-        self.avataImage.image = downloadBigImg(avataImage)
-        photoImage.image = downloadBigImg(url)
+        DispatchQueue.main.async {
+            self.avataImage.image = self.downloadBigImg(avataImage)
+            self.photoImage.image = self.downloadBigImg(url)
+        }
     }
     
     func downloadBigImg(_ url: String) -> UIImage? {

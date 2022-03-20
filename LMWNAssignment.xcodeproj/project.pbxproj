@@ -64,6 +64,7 @@
 		F2471E4927E5D5F80030F5C0 /* LMWNAssignment */ = {
 			isa = PBXGroup;
 			children = (
+				F268794227E72DB900AF959D /* compo */,
 				F268793A27E6D5EA00AF959D /* PhotoRequest.swift */,
 				F2471E4A27E5D5F80030F5C0 /* AppDelegate.swift */,
 				F2471E4C27E5D5F80030F5C0 /* SceneDelegate.swift */,
@@ -73,8 +74,6 @@
 				F2471E5527E5D5FA0030F5C0 /* LaunchScreen.storyboard */,
 				F2471E5827E5D5FA0030F5C0 /* Info.plist */,
 				F268793927E6C72200AF959D /* model */,
-				F2321A6927E5EC3700F36C6E /* PhotoTableViewCell.swift */,
-				F268793E27E7191200AF959D /* PaddingLabel.swift */,
 			);
 			path = LMWNAssignment;
 			sourceTree = "<group>";
@@ -85,6 +84,15 @@
 				F2471E5E27E5D6C40030F5C0 /* PhotoInfo.swift */,
 			);
 			path = model;
+			sourceTree = "<group>";
+		};
+		F268794227E72DB900AF959D /* compo */ = {
+			isa = PBXGroup;
+			children = (
+				F268793E27E7191200AF959D /* PaddingLabel.swift */,
+				F2321A6927E5EC3700F36C6E /* PhotoTableViewCell.swift */,
+			);
+			path = compo;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
