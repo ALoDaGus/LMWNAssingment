@@ -25,10 +25,8 @@ class PhotoTableViewCell: UITableViewCell {
         ownerNameLabel.text = ownerName
         camNameLabel.text = camName
         camNameLabel.isHidden = camName == "" ? true: false
-        DispatchQueue.main.async {
-            self.avataImage.image = self.downloadBigImg(avataImage)
-            self.photoImage.image = self.downloadBigImg(url)
-        }
+        photoImage.downloaded(from: url, contentMode: .scaleAspectFill)
+        self.avataImage.downloaded(from: avataImage, contentMode: .scaleAspectFill)
     }
     
     func downloadBigImg(_ url: String) -> UIImage? {
