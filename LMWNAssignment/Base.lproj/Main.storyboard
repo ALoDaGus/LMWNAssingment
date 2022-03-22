@@ -78,7 +78,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="camName" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SDn-Ic-utL" customClass="PaddingLabel" customModule="LMWNAssignment" customModuleProvider="target">
-                                                    <rect key="frame" x="358" y="81" width="44" height="11"/>
+                                                    <rect key="frame" x="350" y="74" width="52" height="18"/>
                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                                     <nil key="textColor"/>
@@ -173,7 +173,7 @@
                                 <buttonConfiguration key="configuration" style="plain" title="Next"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fST-hQ-hle">
-                                <rect key="frame" x="10" y="831" width="80" height="31"/>
+                                <rect key="frame" x="10" y="831" width="79.5" height="31"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Previous"/>
                             </button>
@@ -197,6 +197,8 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="HHg-La-KAa" secondAttribute="trailing" id="UbT-tr-KH4"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="HHg-La-KAa" secondAttribute="bottom" constant="39" id="eRI-b2-EZq"/>
                             <constraint firstItem="HHg-La-KAa" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="gFG-id-PxD"/>
+                            <constraint firstItem="POm-pB-vku" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="FvP-Ve-1db" secondAttribute="trailing" constant="50" id="gO9-eV-hpH"/>
+                            <constraint firstItem="FvP-Ve-1db" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="fST-hQ-hle" secondAttribute="trailing" constant="50" id="jim-7G-JZj"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="POm-pB-vku" secondAttribute="trailing" constant="10" id="mkL-hk-oTf"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="fST-hQ-hle" secondAttribute="bottom" id="uPC-NS-yiV"/>
                         </constraints>
@@ -217,7 +219,7 @@
     </scenes>
     <designables>
         <designable name="SDn-Ic-utL">
-            <size key="intrinsicContentSize" width="44" height="11"/>
+            <size key="intrinsicContentSize" width="52" height="18"/>
         </designable>
     </designables>
     <resources>

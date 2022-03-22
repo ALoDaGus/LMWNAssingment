@@ -29,10 +29,10 @@ struct User: Decodable{
 }
 
 struct Avatars: Decodable{
-    var tiny: tiny
+    var large: large
 }
 
-struct tiny: Decodable{
+struct large: Decodable{
     var https: String
 }
 
